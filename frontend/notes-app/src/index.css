@@ -16,4 +16,10 @@
   .btn-primary{
     @apply w-full text-sm  bg-green-400 text-white p-2 rounded-2xl my-1 hover:bg-green-600
   }
+  .icon-btn {
+    @apply text-xl text-slate-300 cursor-pointer hover:text-green-400
+  }
+  .input-label{
+    @apply  text-xs text-slate-400;
+  }
 }
