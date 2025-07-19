@@ -1,6 +1,7 @@
 import React from 'react'
 import Navbar from '../../components/Navbar/Navbar'
-import NotesCard from '../../components/Navbar/Cards/NotesCard'
+import NotesCard from '../../components/Cards/NotesCard'
+
 
 export default function Home() {
   return (

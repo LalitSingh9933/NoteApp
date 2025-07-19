@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import Navbar from '../../components/Navbar/Navbar'
-import PasswordInput from '../../components/Navbar/input/PasswordInput';
 import { Link } from 'react-router-dom';
 import { validateEmail } from '../../utils/helper';
+import PasswordInput from '../../components/input/PasswordInput';
+
 
 export default function SignUp() {
   const [name, setName] = useState("");
