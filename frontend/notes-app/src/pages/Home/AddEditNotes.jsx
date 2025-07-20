@@ -26,11 +26,11 @@ export default function AddEditNotes({ noteData, type, onClose }) {
                 addNewNote();
             }
         }
-    }
+    
 
 
 return (
-    <div className='relative'>
+    <div className=' relative'>
         <button className=' w-10 h-10 rounded-full flex justify-center items-center -top-3 -right-3 hover:bg-slate-50 absolute '
             onClick={onClose}>
             <MdClose />
@@ -73,7 +73,7 @@ return (
         </button>
     </div>
 )
-
+}
     
 
 
