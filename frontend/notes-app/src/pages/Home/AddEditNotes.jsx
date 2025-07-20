@@ -10,9 +10,10 @@ export default function AddEditNotes({ noteData, type, onClose }) {
     const [error, setError] = useState(null);
     //Add Note
 
-    addNewNote = () => {
-     
-        }
+     const addNewNote =  async() => {};
+    //Edit Note
+     const editNote = async() =>{};
+    
         const handleAddNote = () => {
             if (title.trim() === "" || content.trim() === "") {
                 setError("Title and content cannot be empty");
@@ -69,7 +70,7 @@ return (
             {error && <p className='text-red-500 text-sm mt-2'>{error}</p>}
         </div>
         <button className='btn-primary font-medium mt-5 p-3' onClick={handleAddNote}>
-            Add
+            {type === "edit" ? "Update" : "Add"}
         </button>
     </div>
 )

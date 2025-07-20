@@ -52,6 +52,8 @@ export default function Home() {
             className="w-[80%] max-h-[75%] md:w-[60%] lg:w-[50%] bg-white rounded-2xl mx-auto mt-8 p-5  "
           >
             <AddEditNotes
+            type={openAddEditModal.type}
+            noteData={openAddEditModal.data}
              onClose={() =>{
               setOpenAddEditModal({isShown:false, type:"add",data:null});
              }}
