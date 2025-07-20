@@ -1,0 +1,36 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "NoteApp",
+  "keywords": [
+    "Mern",
+    "node",
+    "js",
+    "reactjs",
+    "expressjs"
+  ],
+  "homepage": "https://github.com/LalitSingh9933/NoteApp#readme",
+  "bugs": {
+    "url": "https://github.com/LalitSingh9933/NoteApp/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LalitSingh9933/NoteApp.git"
+  },
+  "license": "ISC",
+  "author": "Lalit Singh",
+  "type": "commonjs",
+  "main": "home.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon home.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.0",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.16.4",
+    "nodemon": "^3.1.10"
+  }
+}
