@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { use, useState } from 'react';
 import Navbar from '../../components/Navbar/Navbar';
-import { Link } from 'react-router-dom';
+import { Link,useNavigate } from 'react-router-dom';
 import { validateEmail } from '../../utils/helper';
 import PasswordInput from '../../components/input/PasswordInput';
 
@@ -10,6 +10,8 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [errorEmail, setErrorEmail] = useState(null);
   const [errorPassword, setErrorPassword] = useState(null);
+
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -31,7 +33,26 @@ export default function Login() {
     }
 
     // Proceed with Login API call here
-  };
+try {
+  const response = await axiosInstance.post('/login', {
+    email: email,
+    password: password,
+  });
+
+  if (response.data && response.data.success) {
+    localStorage.setItem('token', response.data.token);
+    navigate('/dashboard');
+  }
+} catch (error) {
+  // Handle error response
+  if (error.response && error.response.data && error.response.data.message) {
+    setErrorPassword(error.response.data.message);
+  } else {
+    setErrorPassword("An error occurred while logging in. Please try again later.");
+  }
+}
+
+}
 
   return (
     <div>
