@@ -5,11 +5,12 @@ import SearchBar from '../SearchBar/SearchBar';
 
 
 
-const navigate = useNavigate;
-export default function Navbar() {
+
+export default function Navbar({userInfo}) {
   const [searchQuery, setSearchQuery]=useState("");
- 
+ const navigate = useNavigate();
   const onLogout =() =>{
+    localStorage.clear();
      navigate("/login")
   };
   const handleSearch =() =>{
@@ -28,7 +29,7 @@ export default function Navbar() {
       }}
       handleSearch={handleSearch}
       onClearSearch={onClearSearch}/>
-      <ProfileInfo onLogout={onLogout}/>
+      <ProfileInfo userInfo={userInfo} onLogout={onLogout}/>
     </div>
   )
 }

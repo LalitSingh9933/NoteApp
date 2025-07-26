@@ -1,8 +1,10 @@
-import React, { use, useState } from 'react';
+import React, {  useState } from 'react';
 import Navbar from '../../components/Navbar/Navbar';
 import { Link,useNavigate } from 'react-router-dom';
 import { validateEmail } from '../../utils/helper';
 import PasswordInput from '../../components/input/PasswordInput';
+import axiosInstance from '../../utils/axiosInstance';
+
 
 
 export default function Login() {
@@ -14,44 +16,42 @@ export default function Login() {
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    // Reset errors
-    setErrorEmail(null);
-    setErrorPassword(null);
+  setErrorEmail(null);
+  setErrorPassword(null);
 
-    // Validate email
-    if (!validateEmail(email)) {
-      setErrorEmail("Please enter a valid email address");
-      return;
+  if (!validateEmail(email)) {
+    setErrorEmail("Please enter a valid email address");
+    return;
+  }
+
+  if (!password) {
+    setErrorPassword("Please enter the password");
+    return;
+  }
+
+  try {
+    const response = await axiosInstance.post('/login', {
+      email: email,
+      password: password,
+    });
+
+    // ✅ Use backend's `error: false` logic
+    if (response.data && response.data.error === false) {
+      localStorage.setItem('token', response.data.accessToken); // ✅ match backend's token name
+      navigate('/dashboard');
+    } else {
+      setErrorPassword(response.data.message || "Login failed. Please check your credentials.");
     }
 
-    // Validate password
-    if (!password) {
-      setErrorPassword("Please enter the password");
-      return;
+  } catch (error) {
+    if (error.response && error.response.data && error.response.data.error) {
+      setErrorPassword(error.response.data.error);
+    } else {
+      setErrorPassword("An error occurred while logging in. Please try again later.");
     }
-
-    // Proceed with Login API call here
-try {
-  const response = await axiosInstance.post('/login', {
-    email: email,
-    password: password,
-  });
-
-  if (response.data && response.data.success) {
-    localStorage.setItem('token', response.data.token);
-    navigate('/dashboard');
   }
-} catch (error) {
-  // Handle error response
-  if (error.response && error.response.data && error.response.data.message) {
-    setErrorPassword(error.response.data.message);
-  } else {
-    setErrorPassword("An error occurred while logging in. Please try again later.");
-  }
-}
-
 }
 
   return (

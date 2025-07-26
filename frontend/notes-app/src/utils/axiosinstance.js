@@ -7,11 +7,11 @@ const axiosInstance = axios.create({
         'accept': 'application/json'
     },
 });
-axiosInstance.insterrceptors.response.use(
+axiosInstance.interceptors.request.use(
     (config) =>  {
-        const acceptToken = localStorage.getItem('token');
-        if(acceptToken) {
-            config.headers['Authorization'] = `Bearer ${acceptToken}`;
+        const accessToken = localStorage.getItem('token');
+        if(accessToken) {
+            config.headers['Authorization'] = `Bearer ${accessToken}`;
         }
         return config;
     },
