@@ -12,6 +12,8 @@ import EmptyCard from '../../components/EmptyCard/EmptyCard';
 import AddNoteImage from '../../assets/img/noteNotfound.png'
 import NoNotes from '../../assets/img/nothing.png'
 
+Modal.setAppElement('#root');
+
 export default function Home() {
   const [openAddEditModal, setOpenAddEditModal] = useState({
     isShown: false,
