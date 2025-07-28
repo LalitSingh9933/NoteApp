@@ -100,7 +100,7 @@ export default function AddEditNotes({ noteData, type, getAllNotes, onClose, sho
                     <input
                         type='text'
                         className='text-lg text-gray-900 outline-none border border-gray-300 rounded p-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent'
-                        placeholder='Go to Gym at 6:00 PM'
+                        placeholder='Write some note at 9:00 PM'
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
                     />
