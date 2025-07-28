@@ -107,10 +107,10 @@ app.post("/login", async (req, res) => {
 });
 //get user 
 app.get("/get-user-details", authenticateToken, async (req, res) => {
-   const userId = req.user.userId; 
+  const userId = req.user.userId;
 
-  const isUser= await User.findById(userId);
-  if(!isUser){
+  const isUser = await User.findById(userId);
+  if (!isUser) {
     return res.sendStatus(401);
   }
   return res.json({
@@ -129,6 +129,7 @@ app.post("/add-note", authenticateToken, async (req, res) => {
   }
 
   try {
+
     const note = new Note({ title, content, tags: tags || [], userId });
     await note.save();
 
@@ -227,20 +228,57 @@ app.put("/update-pin-status/:noteId", authenticateToken, async (req, res) => {
     if (!note) {
       return res.status(404).json({ error: "Note not found" });
     }
-    if (isPinned) note.isPinned = isPinned || false;;
 
+    // Toggle the pin status
+    note.isPinned = !note.isPinned;
     await note.save();
 
     return res.json({
       error: false,
       note,
-      message: "Pin status updated successfully",
+      message: note.isPinned ? "Note pinned successfully" : "Note unpinned successfully",
     });
   } catch (error) {
     console.error("Pin status update error:", error);
     return res.status(500).json({ error: "Internal server error" });
   }
 });
+//Search Notes
+
+app.get('/search-notes', authenticateToken, async (req, res) => {
+  const userId = req.user.userId;
+  const { query } = req.query;
+
+  if (!query) {
+    return res.status(400).json({
+      error: true,
+      message: "Search query is required"
+    });
+  }
+
+  try {
+    const matchingNotes = await Note.find({
+      userId: userId,
+      $or: [
+        { title: { $regex: new RegExp(query, "i") } },
+        { content: { $regex: new RegExp(query, "i") } },
+      ],
+    });
+
+    return res.status(200).json({
+      error: false,
+      message: "Query is not match with any notes",
+      notes: matchingNotes,
+    });
+
+  } catch (error) {
+    return res.status(500).json({
+      error: true,
+      message: "Internal Server Error"
+    });
+  }
+});
+
 
 // Start server
 app.listen(PORT, () => console.log(`👌 Server running on port ${PORT}`));
