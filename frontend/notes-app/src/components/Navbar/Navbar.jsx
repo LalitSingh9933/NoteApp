@@ -42,7 +42,7 @@ export default function Navbar({ userInfo, onSearchNote, handleClearSearch }) {
     handleClearSearch();
   };
 
-  const isAuthPage = location.pathname === "/login" || location.pathname === "/signup";
+  const isAuthPage = location.pathname === "/login" || location.pathname === "/signup"||location.pathname === "/";
 
   return (
     <div className="bg-white flex items-center justify-between px-6 py-2 drop-shadow">
