@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import TagInput from '../../components/input/TagInput';
 import { MdClose } from 'react-icons/md';
-import axiosInstance from '../../utils/axiosInstance';
+import axiosInstance from '@/utils/axiosInstance';
 
 export default function AddEditNotes({ noteData, type, getAllNotes, onClose, showToastMessage }) {
     const [title, setTitle] = useState(noteData?.title || "");

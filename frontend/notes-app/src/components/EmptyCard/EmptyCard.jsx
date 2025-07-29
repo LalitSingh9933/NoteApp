@@ -1,6 +1,6 @@
 import React from 'react'
 import { motion } from 'framer-motion'
-import { FiArrowDown } from 'react-icons/fi'
+
 
 export default function EmptyCard({ imgSrc, message }) {
   return (
