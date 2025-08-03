@@ -5,12 +5,12 @@ import { validateEmail } from '../../utils/helper';
 import PasswordInput from '../../components/input/PasswordInput';
 import axiosInstance from '@/utils/axiosinstance';
 
-
 export default function SignUp() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
   const handleSignup = async (e) => {
     e.preventDefault();
@@ -27,7 +27,7 @@ export default function SignUp() {
       return;
     }
     setError('')
-
+    setIsSubmitting(true);
     //SignUp API call
     try {
       const response = await axiosInstance.post('/create-account', {
@@ -40,6 +40,7 @@ export default function SignUp() {
         setError(response.data.message);
         return
       }
+
       if (response.data && response.data.accessToken) {
         localStorage.setItem('token', response.data.accessToken);
         navigate('/dashboard');
@@ -55,8 +56,11 @@ export default function SignUp() {
       }
 
     }
-
+    finally {
+      setIsSubmitting(false);
+    }
   }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-green-50">
       <Navbar />
@@ -127,9 +131,11 @@ export default function SignUp() {
               {/* Submit Button */}
               <button
                 type="submit"
+                disabled={isSubmitting}
                 className="w-full py-3 px-4 bg-green-600 hover:bg-green-700 text-white font-medium rounded-lg transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
               >
-                Create Account
+                {isSubmitting ? 'Loading...' : 'Create Account'}
+
               </button>
 
               {/* Login Link */}
